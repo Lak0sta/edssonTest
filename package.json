@@ -1,0 +1,23 @@
+{
+  "name": "edsson-test",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:serve": "polymer serve --port 8000",
+    "start:db": "json-server ./server/db.js --port 8001",
+    "start": "concurrently \"npm run start:serve\""
+  },
+  "dependencies": {
+    "@polymer/lit-element": "^0.5.0",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "pwa-helpers": "^0.8.2",
+    "skeleton-css": "^2.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "faker": "^4.1.0",
+    "json-server": "^0.12.2",
+    "polymer-cli": "^1.7.0-pre.17"
+  }
+}
