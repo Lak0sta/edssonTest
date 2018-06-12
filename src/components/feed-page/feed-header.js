@@ -6,8 +6,9 @@ class FeedHeader extends LitElement {
       name: String,
       avatarUrl: String,
       post: String,
-      addFeed: Function,
-      disabled: Boolean
+      addPost: Function,
+      disabled: Boolean,
+      error: Boolean
     }
   }
 
@@ -15,37 +16,51 @@ class FeedHeader extends LitElement {
     super();
     this.post = "";
     this.disabled = true;
+    this.error = false;
   }
 
   _render(props) {
+    let error;
+    if (!props.error) {
+      error = html``
+    } else {
+      error = html`<span class="error">Field must contain only letters and numbers</span>`
+    }
     return html`
       <style>
         @import "../../node_modules/skeleton-css/css/normalize.css";
         @import "../../node_modules/skeleton-css/css/skeleton.css";
 
-        .Header__container {
-          padding: 4rem 0;
-          display: flex;
+        .header {
+          display:flex;
+          flex-direction: column;
           border-bottom: 1px solid lightgray;
         }
-        .Header__userinfo {
+
+        .header__container {
+          padding: 1rem 0;
+          display: flex;
+        }
+        .header__userinfo {
           text-align: center;
           margin-right: 4rem;
         }
-        .Header__userinfo > img {
+
+        .userinfo__img {
           width: 12rem;
           height: 12rem;
           border-radius: 50%;
         }
-        h5 {
+
+        .userinfo__name {
           margin: 0;
         }
-        .Header__newpost {
+        .header__newpost {
           display: flex;
           flex: 1;
           align-items: center;
         }
-        .Header__newpost > textarea {
+        .header__textarea {
           flex: 1;
           margin-right: 4rem;
           height: 10rem;
@@ -56,23 +71,33 @@ class FeedHeader extends LitElement {
           border-color: lightgray;
           background-color: lightgray;
         }
+
+        .error {
+          text-align: center;
+          color: red;
+        }
       </style>
-      <div class="Header__container">
-        <div class="Header__userinfo">
-          <img src="${props.avatarUrl}" alt="avatar" />
-          <h5>${props.name}</h5>
+      <div class="header">
+        <div class="header__container">
+          <div class="header__userinfo userinfo">
+            <img class="userinfo__img" src="${props.avatarUrl}" alt="avatar" />
+            <h5 class="userinfo__name">${props.name}</h5>
+          </div>
+          <div class="header__newpost">
+            <textarea
+              class="header__textarea"
+              oninput="${this.updatePost.bind(this)}"
+              value="${this.post}">
+            </textarea>
+            <button
+              type="submit"
+              class="button-primary" disabled="${props.disabled}"
+              onclick="${this.postFeed.bind(this)}">
+              Send
+            </button>
+          </div>
         </div>
-        <div class="Header__newpost">
-          <textarea
-            oninput="${this.updatePost.bind(this)}"
-            value="${props.post}">
-          </textarea>
-          <button
-            class="button-primary" disabled="${props.disabled}"
-            onclick="${this.postFeed.bind(this)}">
-            Send
-          </button>
-        </div>
+        ${error}
       </div>
     `;
   }
@@ -86,14 +111,24 @@ class FeedHeader extends LitElement {
     }
   }
 
-  postFeed() {
-    this.addFeed({
-      name: this.name,
-      avatarUrl: this.avatarUrl,
-      post: this.post
-    }).then(() => {
+  postFeed(e) {
+    e.preventDefault();
+    const regex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+    if (regex.test(this.post)) {
+      this.addPost({
+        name: this.name,
+        imgUrl: this.avatarUrl,
+        post: this.post,
+        id: `${Date.now()}`
+      })
       this.post = "";
-    })
+      this.disabled = true;
+    } else {
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 2000);
+    }
   }
 }
 

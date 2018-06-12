@@ -3,25 +3,33 @@ import routerView from "../router/router-view.js";
 
 export default route => html`
   <style>
-    header {
-      border-bottom: 1px solid lightgray;
-    }
-    ul {
+    .tabs {
       display: flex;
-      list-style: none;
-      margin-bottom: 0;
     }
+
     li {
-      margin: 1.5rem 1rem;
+      list-style-type: none;
+      margin-top: 10px;
+    }
+
+    .tabs__item {
+      background: white;
+      border-radius: 10px 10px 0 0;
+      border: 1px solid black;
+      padding: 10px 40px;
+      width: 150px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
     }
   </style>
   <header>
-    <ul class="container">
+    <ul class="container tabs">
       <li>
-        <a href="/home">Home</a>
+        <a class="tabs__item" href="/home">Home</a>
       </li>
       <li>
-        <a href="/feed">Feed</a>
+        <a class="tabs__item" href="/feed">Feed</a>
       </li>
     </ul>
   </header>

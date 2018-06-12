@@ -5,9 +5,9 @@ class FeedItem extends LitElement {
     return {
       uId: String,
       name: String,
-      avatarUrl: String,
+      imgUrl: String,
       post: String,
-      editing: Boolean,
+      disabled: Boolean,
       editFeed: Function,
       removeFeed: Function
     }
@@ -16,18 +16,18 @@ class FeedItem extends LitElement {
   _render(props) {
     // console.log(props.uId);
     let postView;
-    if (this.editing) {
-      postView = html`
-        <input
-          type="text"
-          value="${props.post}"
-          class="Feed__post"
-          onblur="${this.postChanged.bind(this)}"
-          onchange="${this.postChanged.bind(this)}"/>
-      `;
-    } else {
-      postView = html`<span class="Feed__post">${props.post}</span>`
-    }
+    
+    postView = html`
+      <input
+        type="text"
+        value="${props.post}"
+        class="Feed__post"
+        disabled="${this.disabled}"
+        onblur="${this.postChanged.bind(this)}"
+        onchange="${this.postChanged.bind(this)}"
+        on-click="${this.startEditing.bind(this)}"/>
+    `;
+    
     return html`
       <style>
         @import "../../node_modules/skeleton-css/css/normalize.css";
@@ -65,7 +65,7 @@ class FeedItem extends LitElement {
         }
       </style>
       <div>
-        <img src="${props.avatarUrl}" />
+        <img src="${props.imgUrl}" />
         <b>${props.name}</b>
         ${postView}
         <span class="Feed__icon" on-click="${this.startEditing.bind(this)}">&#9998;</span>
@@ -75,19 +75,21 @@ class FeedItem extends LitElement {
   }
   
   startEditing() {
-    this.editing = true;
+    this.disabled = false;
     this.renderComplete.then(() => this._root.querySelector("input").focus());
   }
 
   postChanged(e) {
+    // console.log(e.currentTarget.value);
     const newFeed = {
       id: this.uId,
       name: this.name,
-      avatarUrl: this.avatarUrl,
+      imgUrl: this.imgUrl,
       post: e.path[0].value
     }
-    this.editing = false;
-    this.editFeed(newFeed);
+    // console.log(newFeed);
+    this.disabled = true;
+    this.editPost(newFeed);
   }
 }
 

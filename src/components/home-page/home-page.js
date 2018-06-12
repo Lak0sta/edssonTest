@@ -9,11 +9,11 @@ class HomePage extends LitElement {
         div {
           display: flex;
           justify-content: center;
-          padding-top: 10vmin;
+          padding-top: 10vh;
         }
       </style>
       <div>
-        <h3>Welcome!</h3>
+        <h3>Welcome to the home page!</h3>
       </div>
     `;
   }

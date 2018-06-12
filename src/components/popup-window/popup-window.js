@@ -1,7 +1,5 @@
 import { LitElement, html } from "@polymer/lit-element/lit-element.js";
 
-const DELAY = 2000;
-
 class PopupWindow extends LitElement {
   static get properties() {
     return {
@@ -25,7 +23,7 @@ class PopupWindow extends LitElement {
         this.timeout = window.setTimeout(() => {
           this.hide();
           resolve();
-        }, DELAY);
+        }, 2000);
       });
     }
   }
@@ -33,7 +31,6 @@ class PopupWindow extends LitElement {
   hide() {
     if (this.showed) {
       this.showed = false;
-      this.message = "";
       this._clearTimeout();
     }
   }
@@ -59,9 +56,11 @@ class PopupWindow extends LitElement {
           background-color: linen;
           box-shadow: 0 1px 8px 0 grey;
           border-radius: 0.5rem;
+          transition: all 0.5s ease-in;
         }
         .Popup--hidden {
           opacity: 0;
+          transition: all 0.5s ease-in;
         }
       </style>
       <div className="Popup ${divClass}">

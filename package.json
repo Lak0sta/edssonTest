@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
-    "faker": "^4.1.0",
     "json-server": "^0.12.2",
     "polymer-cli": "^1.7.0-pre.17"
   }
