@@ -12,7 +12,7 @@ class HomePage extends LitElement {
           padding-top: 10vh;
         }
       </style>
-      <div>
+      <div class="container">
         <h3>Welcome to the home page!</h3>
       </div>
     `;

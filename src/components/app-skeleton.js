@@ -23,7 +23,7 @@ export default route => html`
       text-decoration: none;
     }
   </style>
-  <header>
+  <header class="header">
     <ul class="container tabs">
       <li>
         <a class="tabs__item" href="/home">Home</a>
@@ -33,7 +33,7 @@ export default route => html`
       </li>
     </ul>
   </header>
-  <main>
+  <main class="main">
     ${routerView(route)}
   </main>
 `;

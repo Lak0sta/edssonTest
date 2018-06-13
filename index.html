@@ -7,8 +7,15 @@
   <link rel="stylesheet" href="./node_modules/skeleton-css/css/normalize.css">
   <link rel="stylesheet" href="./node_modules/skeleton-css/css/skeleton.css">
   <title>Edsson Test</title>
+  <style>
+    .main::-webkit-scrollbar { width: 0; }
+    .main {
+      -ms-overflow-style: none;
+      overflow: -moz-scrollbars-none;
+    }
+  </style>
 </head>
-<body>
+<body class="main">
   <app-root></app-root>
   <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
   <script src="./src/app-root.js" type="module"></script>

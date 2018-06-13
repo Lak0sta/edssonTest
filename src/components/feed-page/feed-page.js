@@ -30,47 +30,47 @@ class FeedPage extends LitElement {
   }
 
   _render(props) {
-    let postsList;
+    const postsList = props.feeds.map(feed => {
+    return html`
+        <li>
+          <feed-item
+            uId="${feed.id}"
+            name="${feed.name}"
+            imgUrl="${feed.imgUrl}"
+            post="${feed.post}"
+            editPost="${this.editPost.bind(this)}"
+            removeFeed="${this.removePost.bind(this)}"
+            disabled="${true}"
+          >
+          </feed-item>
+        </li>
+      `;
+    });
+
     if (this.feeds.length > 0) {
-      postsList = props.feeds.map(feed => {
-        return html`
-          <li>
-            <feed-item
-              uId="${feed.id}"
-              name="${feed.name}"
-              imgUrl="${feed.imgUrl}"
-              post="${feed.post}"
-              editPost="${this.editPost.bind(this)}"
-              removeFeed="${this.removePost.bind(this)}"
-              disabled="${true}"
-            >
-            </feed-item>
-          </li>
-        `;
-        });
+      return html`
+        <style>
+          @import "../../node_modules/skeleton-css/css/normalize.css";
+          @import "../../node_modules/skeleton-css/css/skeleton.css";
+
+          .feeds__container {
+            padding: 2rem 3rem 0;
+            list-style: none;
+          }
+        </style>
+        <div class="container">
+          <feed-header
+            name="${props.name}"
+            avatarUrl="${props.avatarUrl}"
+            addPost="${this.addPost.bind(this)}">
+          </feed-header>
+          <ul class="feeds__container">${postsList}</ul>
+        </div>
+      `;
     } else {
-      postsList = html`<spinner-element></spinner-element>`
+      return html`<spinner-element></spinner-element>`;
     }
 
-    return html`
-      <style>
-        @import "../../node_modules/skeleton-css/css/normalize.css";
-        @import "../../node_modules/skeleton-css/css/skeleton.css";
-
-        .feeds__container {
-          padding: 2rem 3rem 0;
-          list-style: none;
-        }
-      </style>
-      <div class="container">
-        <feed-header
-          name="${props.name}"
-          avatarUrl="${props.avatarUrl}"
-          addPost="${this.addPost.bind(this)}">
-        </feed-header>
-        <ul class="feeds__container">${postsList}</ul>
-      </div>
-    `;
   }
 
   setPostsStructure(unstructuredPosts) {
