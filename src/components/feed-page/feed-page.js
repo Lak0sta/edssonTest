@@ -57,6 +57,10 @@ class FeedPage extends LitElement {
             padding: 2rem 3rem 0;
             list-style: none;
           }
+          .container {
+            max-width: 960px;
+            margin: 0 auto;
+          }
         </style>
         <div class="container">
           <feed-header
