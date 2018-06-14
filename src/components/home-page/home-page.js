@@ -6,6 +6,12 @@ class HomePage extends LitElement {
       <style>
         @import "../../node_modules/skeleton-css/css/normalize.css";
         @import "../../node_modules/skeleton-css/css/skeleton.css";
+
+        .container {
+          max-width: 960px;
+          margin: 0 auto;
+        }
+
         div {
           display: flex;
           justify-content: center;

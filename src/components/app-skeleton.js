@@ -22,6 +22,11 @@ export default route => html`
       cursor: pointer;
       text-decoration: none;
     }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
   </style>
   <header class="header">
     <ul class="container tabs">
